@@ -44,7 +44,7 @@
   <tbody>
     @foreach($users as $user)
     <tr>
-      <td>1</td>
+      <td>{{ $loop->iteration }}</td>
       <td>{{$user->name}}</td>
       <td>{{$user->flappy}}</td>
       <td>{{$user->trex}}</td>

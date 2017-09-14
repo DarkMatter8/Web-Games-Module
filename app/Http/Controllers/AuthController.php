@@ -58,6 +58,51 @@ class AuthController extends Controller
         }
     }
 
+    public function do_register(Request $request) {
+        // Validate the input
+        $messages = [
+            'required' => 'Enter your :attribute',
+        ];
+        $validator = Validator::make($request->all(), [
+            'name' => 'required | max:64',
+            'email' => 'required | email | max:64',
+            'password' => 'required ',
+        ], $messages);
+        // If validator fails
+        if($validator->fails()){
+            return response()->json([
+                    'status' => 'fail',
+                    'message' => 'There are some errors in your Form !',
+                ]);
+        } else {
+            // Check if user exists
+            $checkUser = Participant::where('email', $request->input('email'))->get();
+            if(count($checkUser) == 1) {
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'User with that email id already exists!',
+                ]);
+            } else {
+                // Register that user
+                $password = Hash::make($request->input('password'));
+                $newUser = Participant::firstOrCreate(
+                    ['email' => $request->input('email'), 'name' => $request->input('name'), 'password' => $password, 'role' => 'player']
+                );
+                if($newUser) {
+                    return response()->json([
+                    'status' => 'success',
+                    'message' => 'Registration Successful !',
+                ]);
+                } else {
+                    return response()->json([
+                    'status' => 'fail',
+                    'message' => 'something went wrong !',
+                ]);
+                }
+            }
+        }
+    }
+
     public function do_logout(Request $request) {
         Session::flush();
         return redirect('/');
