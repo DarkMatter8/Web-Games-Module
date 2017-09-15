@@ -23,7 +23,7 @@ class ParticipantTable extends Migration
             $table->string('trex')->nullable();
             $table->string('goblin')->nullable();
             $table->string('space')->nullable();
-            $table->string('total')->nullable();
+            $table->integer('total')->nullable();
             $table->integer('flappy_c')->default('3');
             $table->integer('ping_c')->default('3');
             $table->integer('trex_c')->default('3');

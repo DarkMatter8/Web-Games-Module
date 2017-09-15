@@ -130,7 +130,7 @@ class PlayerController extends Controller
 
     public function show_scoreboard(){
         
-        $users = Participant::where('role', 'player')->get();
+        $users = Participant::where('role', 'player')->orderBy('total', 'DESC')->get();
 
         return view('scoreboard')->with('users', $users);
     }

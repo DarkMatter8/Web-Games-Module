@@ -47,9 +47,7 @@
             </div>
          </div>
     </div>
-    <footer>
-        <h3><a>Made By..</a></h3>
-    </footer>
+
     <script type="text/javascript" src="{!! asset('js/auth.js') !!}"></script>
     </body>
 </html>
